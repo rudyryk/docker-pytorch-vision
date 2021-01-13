@@ -9,8 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         curl \
         ca-certificates \
-        libjpeg-dev \
-        libpng-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ARG PYTHON_VERSION=3.8
@@ -24,22 +22,5 @@ RUN curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest
     conda install -y -c conda-forge \
         libopencv opencv py-opencv && \
     conda install -y -c pytorch \
-        magma-cuda111 pytorch && \
+        magma-cuda110 pytorch torchvision && \
     conda clean -ya
-
-# ARG WITH_TORCHVISION=1
-# RUN TORCH_CUDA_ARCH_LIST="5.0;7.0;8.0;8.6+PTX" \
-#     TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
-#     CMAKE_PREFIX_PATH="$(dirname $(which conda))/../" && \
-#     cd /opt && \
-#     git clone https://github.com/pytorch/pytorch.git && \
-#     cd ./pytorch && \
-#     git submodule sync && git submodule update --init --recursive && \
-#     pip install -v . && \
-#     if [ "$WITH_TORCHVISION" = "1" ] ; \
-#     then git clone https://github.com/pytorch/vision.git && \
-#     cd ./vision && \
-#     pip install -v . ; \
-#     else echo "building without torchvision" ; fi
-
-# WORKDIR /src

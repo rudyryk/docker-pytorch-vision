@@ -3,32 +3,27 @@ FROM nvidia/cuda:11.1-devel-ubuntu20.04
 ENV PATH=/opt/conda/bin:$PATH \
     DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -y
-
-RUN apt-get install -y \
-    unzip curl wget ca-certificates \
-    build-essential cmake git
-
-RUN apt-get install -y \
-    python3 python3-pip
-
-RUN apt-get install -y python-is-python3 && \
-    ln -s /usr/bin/pip3 /usr/bin/pip
-
-RUN apt-get install -y \
-    libopencv-dev python3-opencv
-
-RUN pip install \
-    ninja pyyaml mkl mkl-include cffi six requests
-
-RUN pip install \
-    torch==1.7.1+cu110 \
-    torchvision==0.8.2+cu110 \
-    -f https://download.pytorch.org/whl/torch_stable.html
+RUN apt-get update -y && \
+    apt-get install -y \
+        unzip curl wget ca-certificates \
+        build-essential cmake git \
+        python3 python3-pip python-is-python3 \
+        libopencv-dev python3-opencv && \
+    ln -s /usr/bin/pip3 /usr/bin/pip && \
+    pip install \
+        ninja pyyaml mkl mkl-include cffi six requests && \
+    pip install \
+        torch==1.7.1+cu110 \
+        torchvision==0.8.2+cu110 \
+        -f https://download.pytorch.org/whl/torch_stable.html && \
+    apt-get clean && \
+    rm -rf ~/.cache/pip && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # docker build -t rudyryk/docker-pytorch-vision:pkgs -f Dockerfile.pkgs .
 # docker run rudyryk/docker-pytorch-vision:pkgs which python
 
+# What is necessary from this?
 # RUN apt-get update -y \
 #     && apt-get install -y \
 #         unzip curl wget ca-certificates \
