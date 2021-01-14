@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "docker-py38-torch"
+version = "0.1.0"
+description = ""
+authors = ["Alexey Kinev <rudy@05bit.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.19.5"
+pillow = "*"
+PyYAML = "*"
+requests = "*"
+# torch = {url = "https://download.pytorch.org/whl/cu110/torch-1.7.1%2Bcu110-cp38-cp38-linux_x86_64.whl"}
+# torchvision = {url = "https://download.pytorch.org/whl/cu110/torchvision-0.8.2%2Bcu110-cp38-cp38-linux_x86_64.whl"}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
